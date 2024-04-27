@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_7b2d3dd5411d4898530205a35f9a9446 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.4.2/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.4.2/Control.FullScreen.min.css"/>
+</head>
+<body>
+    
+    
+<div style="position: fixed; 
+     bottom: 50px; left: 50px; width: 200px; height: 140px; 
+     background: rgba(255, 255, 255, 0.8); z-index: 1000; font-size: 14px;
+     border:2px solid grey; border-radius: 6px;
+     padding: 10px; 
+     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); overflow: auto;">
+     &nbsp; <b>COVID-19 Death Toll</b> <br>
+     &nbsp; > 500 &nbsp; <i class="fa fa-map-marker fa-2x" style="color:darkred"></i><br>
+     &nbsp; > 100 &nbsp; <i class="fa fa-map-marker fa-2x" style="color:red"></i><br>
+     &nbsp; > 50 &nbsp; <i class="fa fa-map-marker fa-2x" style="color:orange"></i><br>
+     &nbsp; < 50 &nbsp; <i class="fa fa-map-marker fa-2x" style="color:green"></i>
+</div>
+    
+<h3 style="position: fixed; 
+    top: 2%; left: 50%; transform: translate(-50%, -50%);
+    z-index: 9999; font-size: 24px; color: black;
+    background: rgba(255, 255, 255, 0.8); padding: 5px; border-radius: 5px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);">
+    Interactive Map for Statistics on COVID-19 in Nigeria by State
+</h3>
+    
+            <div class="folium-map" id="map_7b2d3dd5411d4898530205a35f9a9446" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_7b2d3dd5411d4898530205a35f9a9446 = L.map(
+                "map_7b2d3dd5411d4898530205a35f9a9446",
+                {
+                    center: [9.082, 8.6753],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 6,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_4a3fda99f0a6498e987736e4560712e0 = L.tileLayer(
+                "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca target=\"_blank\" href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca target=\"_blank\" href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_7b2d3dd5411d4898530205a35f9a9446);
+        
+    
+            var tile_layer_fa76d1db3d527b8201c7c6b6421b55fa = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_7b2d3dd5411d4898530205a35f9a9446);
+        
+    
+            var marker_cluster_774437557d22e26258982c09f81d3622 = L.markerClusterGroup(
+                {}
+            );
+            map_7b2d3dd5411d4898530205a35f9a9446.addLayer(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var marker_993183d38f34c06ac719198a1ff5a7a8 = L.marker(
+                [6.4550575, 3.3941795],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_6749784f6d0a4cd95eaf0ac41cff1781 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "darkred", "prefix": "fa"}
+            );
+            marker_993183d38f34c06ac719198a1ff5a7a8.setIcon(icon_6749784f6d0a4cd95eaf0ac41cff1781);
+        
+    
+        var popup_5e57ce385d26c58ab3ca36e0822f5f97 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ec7d9ad253eb14621a24b907ad341901 = $(`<div id="html_ec7d9ad253eb14621a24b907ad341901" style="width: 100.0%; height: 100.0%;"><b>State:</b> Lagos<br><b>Confirmed Cases:</b> 92,128<br><b>Deaths:</b> 757</div>`)[0];
+                popup_5e57ce385d26c58ab3ca36e0822f5f97.setContent(html_ec7d9ad253eb14621a24b907ad341901);
+            
+        
+
+        marker_993183d38f34c06ac719198a1ff5a7a8.bindPopup(popup_5e57ce385d26c58ab3ca36e0822f5f97)
+        ;
+
+        
+    
+    
+            var marker_2b33b520a4c4c718ebcf5baafd100cd4 = L.marker(
+                [8.8311228, 7.1724673],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_00e038cc72bf8096602cd7243b71c543 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_2b33b520a4c4c718ebcf5baafd100cd4.setIcon(icon_00e038cc72bf8096602cd7243b71c543);
+        
+    
+        var popup_a9c172eecf25d28a0fb4cff1c868d746 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_409845ed175713fd3ddde6631ae797dc = $(`<div id="html_409845ed175713fd3ddde6631ae797dc" style="width: 100.0%; height: 100.0%;"><b>State:</b> FCT<br><b>Confirmed Cases:</b> 26,910<br><b>Deaths:</b> 232</div>`)[0];
+                popup_a9c172eecf25d28a0fb4cff1c868d746.setContent(html_409845ed175713fd3ddde6631ae797dc);
+            
+        
+
+        marker_2b33b520a4c4c718ebcf5baafd100cd4.bindPopup(popup_a9c172eecf25d28a0fb4cff1c868d746)
+        ;
+
+        
+    
+    
+            var marker_5f72bf0d0a8c89aa71ead1dbbfcc778d = L.marker(
+                [4.8416028, 6.8604088],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_f0722ef7441988f31353222a91d2046a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_5f72bf0d0a8c89aa71ead1dbbfcc778d.setIcon(icon_f0722ef7441988f31353222a91d2046a);
+        
+    
+        var popup_8dc23775815c5b86aa3914effe676e66 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_5000e30621813d62b2758b808edc40b3 = $(`<div id="html_5000e30621813d62b2758b808edc40b3" style="width: 100.0%; height: 100.0%;"><b>State:</b> Rivers<br><b>Confirmed Cases:</b> 14,261<br><b>Deaths:</b> 154</div>`)[0];
+                popup_8dc23775815c5b86aa3914effe676e66.setContent(html_5000e30621813d62b2758b808edc40b3);
+            
+        
+
+        marker_5f72bf0d0a8c89aa71ead1dbbfcc778d.bindPopup(popup_8dc23775815c5b86aa3914effe676e66)
+        ;
+
+        
+    
+    
+            var marker_e6dd593a550821d6debc040610fd925d = L.marker(
+                [10.3825318, 7.8533226],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_23dc05c5d7cd78b1d0257dd95a9bb9bf = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_e6dd593a550821d6debc040610fd925d.setIcon(icon_23dc05c5d7cd78b1d0257dd95a9bb9bf);
+        
+    
+        var popup_ccbd12a70e406ad955b2ba47f59809fc = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b0c161cc5ab095cf5d0b842aa8ff1b2a = $(`<div id="html_b0c161cc5ab095cf5d0b842aa8ff1b2a" style="width: 100.0%; height: 100.0%;"><b>State:</b> Kaduna<br><b>Confirmed Cases:</b> 10,437<br><b>Deaths:</b> 85</div>`)[0];
+                popup_ccbd12a70e406ad955b2ba47f59809fc.setContent(html_b0c161cc5ab095cf5d0b842aa8ff1b2a);
+            
+        
+
+        marker_e6dd593a550821d6debc040610fd925d.bindPopup(popup_ccbd12a70e406ad955b2ba47f59809fc)
+        ;
+
+        
+    
+    
+            var marker_46c61a152b209b65639945bec3c30b3a = L.marker(
+                [9.0583446, 9.6826289],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_7f6bf7342ef1fb40664fa276283f5c08 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_46c61a152b209b65639945bec3c30b3a.setIcon(icon_7f6bf7342ef1fb40664fa276283f5c08);
+        
+    
+        var popup_e68ddbae14950519ab43f92a03924952 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d01546e18dc67d737291320c11cf9c18 = $(`<div id="html_d01546e18dc67d737291320c11cf9c18" style="width: 100.0%; height: 100.0%;"><b>State:</b> Plateau<br><b>Confirmed Cases:</b> 10,135<br><b>Deaths:</b> 73</div>`)[0];
+                popup_e68ddbae14950519ab43f92a03924952.setContent(html_d01546e18dc67d737291320c11cf9c18);
+            
+        
+
+        marker_46c61a152b209b65639945bec3c30b3a.bindPopup(popup_e68ddbae14950519ab43f92a03924952)
+        ;
+
+        
+    
+    
+            var marker_4b3c45bcca8dfc7d8731f22b3b9abb3b = L.marker(
+                [8.2151249, 3.5642897],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_180df571593c09633d42091bfb9a880b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_4b3c45bcca8dfc7d8731f22b3b9abb3b.setIcon(icon_180df571593c09633d42091bfb9a880b);
+        
+    
+        var popup_b12a700d01bccadac2938a9b6dff0455 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_51064d5f031850378f1aa6faa15a5624 = $(`<div id="html_51064d5f031850378f1aa6faa15a5624" style="width: 100.0%; height: 100.0%;"><b>State:</b> Oyo<br><b>Confirmed Cases:</b> 9,770<br><b>Deaths:</b> 193</div>`)[0];
+                popup_b12a700d01bccadac2938a9b6dff0455.setContent(html_51064d5f031850378f1aa6faa15a5624);
+            
+        
+
+        marker_4b3c45bcca8dfc7d8731f22b3b9abb3b.bindPopup(popup_b12a700d01bccadac2938a9b6dff0455)
+        ;
+
+        
+    
+    
+            var marker_46870fa7333b963f556b182b8875c72a = L.marker(
+                [6.6076575, 5.9722713],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_3afa755b9c1a6e75f994f21879b6add2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_46870fa7333b963f556b182b8875c72a.setIcon(icon_3afa755b9c1a6e75f994f21879b6add2);
+        
+    
+        var popup_e17d74fd152c09c220c6fae4f96b38cb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9de11ebe866264a5cb155baaf575fd51 = $(`<div id="html_9de11ebe866264a5cb155baaf575fd51" style="width: 100.0%; height: 100.0%;"><b>State:</b> Edo<br><b>Confirmed Cases:</b> 7,296<br><b>Deaths:</b> 281</div>`)[0];
+                popup_e17d74fd152c09c220c6fae4f96b38cb.setContent(html_9de11ebe866264a5cb155baaf575fd51);
+            
+        
+
+        marker_46870fa7333b963f556b182b8875c72a.bindPopup(popup_e17d74fd152c09c220c6fae4f96b38cb)
+        ;
+
+        
+    
+    
+            var marker_577da11781e6eef0d6c954b9fb401a06 = L.marker(
+                [6.9788582, 3.4389293],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_aa540d461d3f7116094ea1bbf019b524 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_577da11781e6eef0d6c954b9fb401a06.setIcon(icon_aa540d461d3f7116094ea1bbf019b524);
+        
+    
+        var popup_b928fa1c32db0ee26941a1de64e42871 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9798292ccf932a73d7573c20d5e4e552 = $(`<div id="html_9798292ccf932a73d7573c20d5e4e552" style="width: 100.0%; height: 100.0%;"><b>State:</b> Ogun<br><b>Confirmed Cases:</b> 5,660<br><b>Deaths:</b> 81</div>`)[0];
+                popup_b928fa1c32db0ee26941a1de64e42871.setContent(html_9798292ccf932a73d7573c20d5e4e552);
+            
+        
+
+        marker_577da11781e6eef0d6c954b9fb401a06.bindPopup(popup_b928fa1c32db0ee26941a1de64e42871)
+        ;
+
+        
+    
+    
+            var marker_232118b0cdabf501a8d607ea8b40c700 = L.marker(
+                [7.0209686, 5.0567477],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_3595e82b9b03abde1e3a3ade63d3c108 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_232118b0cdabf501a8d607ea8b40c700.setIcon(icon_3595e82b9b03abde1e3a3ade63d3c108);
+        
+    
+        var popup_f43948d89a4eb79ecda10d13cc3de5a1 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_767682796a71a68c7b78186918d4ffd4 = $(`<div id="html_767682796a71a68c7b78186918d4ffd4" style="width: 100.0%; height: 100.0%;"><b>State:</b> Ondo<br><b>Confirmed Cases:</b> 4,817<br><b>Deaths:</b> 98</div>`)[0];
+                popup_f43948d89a4eb79ecda10d13cc3de5a1.setContent(html_767682796a71a68c7b78186918d4ffd4);
+            
+        
+
+        marker_232118b0cdabf501a8d607ea8b40c700.bindPopup(popup_f43948d89a4eb79ecda10d13cc3de5a1)
+        ;
+
+        
+    
+    
+            var marker_88f6756bc03b4934604022cc0aa77f1e = L.marker(
+                [33.3926893, -95.6749486],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_cb7b207150d5a13cf04c6a8c1f4d8cf0 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_88f6756bc03b4934604022cc0aa77f1e.setIcon(icon_cb7b207150d5a13cf04c6a8c1f4d8cf0);
+        
+    
+        var popup_2337cfe159c813705b42fa47016ee7a0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_31eb2ac8f2d51098adba696ff0021072 = $(`<div id="html_31eb2ac8f2d51098adba696ff0021072" style="width: 100.0%; height: 100.0%;"><b>State:</b> Delta<br><b>Confirmed Cases:</b> 4,705<br><b>Deaths:</b> 110</div>`)[0];
+                popup_2337cfe159c813705b42fa47016ee7a0.setContent(html_31eb2ac8f2d51098adba696ff0021072);
+            
+        
+
+        marker_88f6756bc03b4934604022cc0aa77f1e.bindPopup(popup_2337cfe159c813705b42fa47016ee7a0)
+        ;
+
+        
+    
+    
+            var marker_e71586996712cdfa0b925b0fb8f7912c = L.marker(
+                [11.8948389, 8.5364136],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_9006c56c9c011984f5f29c7d999059eb = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "red", "prefix": "fa"}
+            );
+            marker_e71586996712cdfa0b925b0fb8f7912c.setIcon(icon_9006c56c9c011984f5f29c7d999059eb);
+        
+    
+        var popup_a0770f63ae9f7ac9a20e6b8c8ac5b127 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_65ce136685d591b85967d1a317f77705 = $(`<div id="html_65ce136685d591b85967d1a317f77705" style="width: 100.0%; height: 100.0%;"><b>State:</b> Kano<br><b>Confirmed Cases:</b> 4,647<br><b>Deaths:</b> 123</div>`)[0];
+                popup_a0770f63ae9f7ac9a20e6b8c8ac5b127.setContent(html_65ce136685d591b85967d1a317f77705);
+            
+        
+
+        marker_e71586996712cdfa0b925b0fb8f7912c.bindPopup(popup_a0770f63ae9f7ac9a20e6b8c8ac5b127)
+        ;
+
+        
+    
+    
+            var marker_adcb51563b6b58940a4ce06d5984d7b0 = L.marker(
+                [4.9408638, 7.8412267],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_004f5b706fc08946819a9b9eb6a2f70b = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_adcb51563b6b58940a4ce06d5984d7b0.setIcon(icon_004f5b706fc08946819a9b9eb6a2f70b);
+        
+    
+        var popup_fd54ec1704c5df5731ec687756c0c810 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_6b0085fb33c3d5b5c7a7eec038994592 = $(`<div id="html_6b0085fb33c3d5b5c7a7eec038994592" style="width: 100.0%; height: 100.0%;"><b>State:</b> Akwa Ibom<br><b>Confirmed Cases:</b> 4,487<br><b>Deaths:</b> 44</div>`)[0];
+                popup_fd54ec1704c5df5731ec687756c0c810.setContent(html_6b0085fb33c3d5b5c7a7eec038994592);
+            
+        
+
+        marker_adcb51563b6b58940a4ce06d5984d7b0.bindPopup(popup_fd54ec1704c5df5731ec687756c0c810)
+        ;
+
+        
+    
+    
+            var marker_f8b606dc0e557a8f34e7850e2d729668 = L.marker(
+                [8.8367891, 4.6688487],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_bb9cdae385488768cbae7ad52ba84915 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_f8b606dc0e557a8f34e7850e2d729668.setIcon(icon_bb9cdae385488768cbae7ad52ba84915);
+        
+    
+        var popup_0e3759fd26c3d131b49e0f2c3e11dbce = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_1b97fc121964f8a60df1e917c79d8744 = $(`<div id="html_1b97fc121964f8a60df1e917c79d8744" style="width: 100.0%; height: 100.0%;"><b>State:</b> Kwara<br><b>Confirmed Cases:</b> 4,185<br><b>Deaths:</b> 64</div>`)[0];
+                popup_0e3759fd26c3d131b49e0f2c3e11dbce.setContent(html_1b97fc121964f8a60df1e917c79d8744);
+            
+        
+
+        marker_f8b606dc0e557a8f34e7850e2d729668.bindPopup(popup_0e3759fd26c3d131b49e0f2c3e11dbce)
+        ;
+
+        
+    
+    
+            var marker_8bbfd4360a7ed2b6ea950009f01dd837 = L.marker(
+                [7.5484047, 4.4978307],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_32c46ddd5d771c40e28e35541815ccaf = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_8bbfd4360a7ed2b6ea950009f01dd837.setIcon(icon_32c46ddd5d771c40e28e35541815ccaf);
+        
+    
+        var popup_e9e4e59a6897692864a7acc8e2f65d78 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_6f43a0c48de23bbaaa7b8142a96a4b29 = $(`<div id="html_6f43a0c48de23bbaaa7b8142a96a4b29" style="width: 100.0%; height: 100.0%;"><b>State:</b> Osun<br><b>Confirmed Cases:</b> 3,107<br><b>Deaths:</b> 89</div>`)[0];
+                popup_e9e4e59a6897692864a7acc8e2f65d78.setContent(html_6f43a0c48de23bbaaa7b8142a96a4b29);
+            
+        
+
+        marker_8bbfd4360a7ed2b6ea950009f01dd837.bindPopup(popup_e9e4e59a6897692864a7acc8e2f65d78)
+        ;
+
+        
+    
+    
+            var marker_92c5b9b820f87a33f3fa03e48fe7de5b = L.marker(
+                [6.5536094, 7.4143061],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_5d9a7f4338cf6c7d7f2b9e61a8f75543 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_92c5b9b820f87a33f3fa03e48fe7de5b.setIcon(icon_5d9a7f4338cf6c7d7f2b9e61a8f75543);
+        
+    
+        var popup_9ca447af0bf59d9c14e925ce30393eda = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e2a5221837b32108d9db56c9a8299a1d = $(`<div id="html_e2a5221837b32108d9db56c9a8299a1d" style="width: 100.0%; height: 100.0%;"><b>State:</b> Enugu<br><b>Confirmed Cases:</b> 2,890<br><b>Deaths:</b> 29</div>`)[0];
+                popup_9ca447af0bf59d9c14e925ce30393eda.setContent(html_e2a5221837b32108d9db56c9a8299a1d);
+            
+        
+
+        marker_92c5b9b820f87a33f3fa03e48fe7de5b.bindPopup(popup_9ca447af0bf59d9c14e925ce30393eda)
+        ;
+
+        
+    
+    
+            var marker_c802a20918083f4e583127145351344a = L.marker(
+                [10.38301, 11.206567],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_afa5c88d649d7eafa1e6a6aff4ebdd4f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_c802a20918083f4e583127145351344a.setIcon(icon_afa5c88d649d7eafa1e6a6aff4ebdd4f);
+        
+    
+        var popup_2722eac662e50af17097aaa26559fe29 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_debfe629fc3a6ffecc7634e099bf0039 = $(`<div id="html_debfe629fc3a6ffecc7634e099bf0039" style="width: 100.0%; height: 100.0%;"><b>State:</b> Gombe<br><b>Confirmed Cases:</b> 2,784<br><b>Deaths:</b> 60</div>`)[0];
+                popup_2722eac662e50af17097aaa26559fe29.setContent(html_debfe629fc3a6ffecc7634e099bf0039);
+            
+        
+
+        marker_c802a20918083f4e583127145351344a.bindPopup(popup_2722eac662e50af17097aaa26559fe29)
+        ;
+
+        
+    
+    
+            var marker_ffc3854be12b551eefef2191ed3f2ef8 = L.marker(
+                [8.4387868, 8.2382849],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_a1864de9689b1c6f1e779d48695182cf = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_ffc3854be12b551eefef2191ed3f2ef8.setIcon(icon_a1864de9689b1c6f1e779d48695182cf);
+        
+    
+        var popup_13c7f764fd9839abab4ff65c3a271270 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_aedde1be3b7a4bf5d449481df312c6d5 = $(`<div id="html_aedde1be3b7a4bf5d449481df312c6d5" style="width: 100.0%; height: 100.0%;"><b>State:</b> Nasarawa<br><b>Confirmed Cases:</b> 2,517<br><b>Deaths:</b> 39</div>`)[0];
+                popup_13c7f764fd9839abab4ff65c3a271270.setContent(html_aedde1be3b7a4bf5d449481df312c6d5);
+            
+        
+
+        marker_ffc3854be12b551eefef2191ed3f2ef8.bindPopup(popup_13c7f764fd9839abab4ff65c3a271270)
+        ;
+
+        
+    
+    
+            var marker_96535566fddbe095cdfcf1de1eb9d033 = L.marker(
+                [6.2183136, 6.9531842],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_e78842702bbfbc4473f62f65efcc544e = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_96535566fddbe095cdfcf1de1eb9d033.setIcon(icon_e78842702bbfbc4473f62f65efcc544e);
+        
+    
+        var popup_c69660f553b521135ddd248241bb3154 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9afd737829ec0178a39d12f728fc5283 = $(`<div id="html_9afd737829ec0178a39d12f728fc5283" style="width: 100.0%; height: 100.0%;"><b>State:</b> Anambra<br><b>Confirmed Cases:</b> 2,489<br><b>Deaths:</b> 19</div>`)[0];
+                popup_c69660f553b521135ddd248241bb3154.setContent(html_9afd737829ec0178a39d12f728fc5283);
+            
+        
+
+        marker_96535566fddbe095cdfcf1de1eb9d033.bindPopup(popup_c69660f553b521135ddd248241bb3154)
+        ;
+
+        
+    
+    
+            var marker_8f9e484eca1ca52869e051276fb9cd9e = L.marker(
+                [12.5630825, 7.6207063],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_e1a72ecbd329df59e1eeb590db165d00 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_8f9e484eca1ca52869e051276fb9cd9e.setIcon(icon_e1a72ecbd329df59e1eeb590db165d00);
+        
+    
+        var popup_4a6d74482b2255836b5555d17468ddfb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_d283891edb36baf15b6d4be1e41f14d2 = $(`<div id="html_d283891edb36baf15b6d4be1e41f14d2" style="width: 100.0%; height: 100.0%;"><b>State:</b> Katsina<br><b>Confirmed Cases:</b> 2,377<br><b>Deaths:</b> 37</div>`)[0];
+                popup_4a6d74482b2255836b5555d17468ddfb.setContent(html_d283891edb36baf15b6d4be1e41f14d2);
+            
+        
+
+        marker_8f9e484eca1ca52869e051276fb9cd9e.bindPopup(popup_4a6d74482b2255836b5555d17468ddfb)
+        ;
+
+        
+    
+    
+            var marker_75d6fcbf77116d84526d484da1626710 = L.marker(
+                [5.5859456, 7.0669651],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_6598c0e364528a766992f793f4f3b77f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "orange", "prefix": "fa"}
+            );
+            marker_75d6fcbf77116d84526d484da1626710.setIcon(icon_6598c0e364528a766992f793f4f3b77f);
+        
+    
+        var popup_7034963ff082708ab62e7022534c4bc6 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_78474cc992bbb3f2274e153ecc5a303e = $(`<div id="html_78474cc992bbb3f2274e153ecc5a303e" style="width: 100.0%; height: 100.0%;"><b>State:</b> Imo<br><b>Confirmed Cases:</b> 2,310<br><b>Deaths:</b> 57</div>`)[0];
+                popup_7034963ff082708ab62e7022534c4bc6.setContent(html_78474cc992bbb3f2274e153ecc5a303e);
+            
+        
+
+        marker_75d6fcbf77116d84526d484da1626710.bindPopup(popup_7034963ff082708ab62e7022534c4bc6)
+        ;
+
+        
+    
+    
+            var marker_97a40afc1d65057146349b35574e9f14 = L.marker(
+                [5.4540953, 7.5153071],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_e01551924165197d98a0f4a4b0fe9ddc = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_97a40afc1d65057146349b35574e9f14.setIcon(icon_e01551924165197d98a0f4a4b0fe9ddc);
+        
+    
+        var popup_33abadc378a906e92eb68875b391b857 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3a9a2c491bef0d8f4dacbe5345dba35b = $(`<div id="html_3a9a2c491bef0d8f4dacbe5345dba35b" style="width: 100.0%; height: 100.0%;"><b>State:</b> Abia<br><b>Confirmed Cases:</b> 2,121<br><b>Deaths:</b> 33</div>`)[0];
+                popup_33abadc378a906e92eb68875b391b857.setContent(html_3a9a2c491bef0d8f4dacbe5345dba35b);
+            
+        
+
+        marker_97a40afc1d65057146349b35574e9f14.bindPopup(popup_33abadc378a906e92eb68875b391b857)
+        ;
+
+        
+    
+    
+            var marker_aef321f82b4382a7be12e47df6e61e29 = L.marker(
+                [6.1996918, 8.0348906],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_ffe233927481831a27f5eedf5dc3476f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_aef321f82b4382a7be12e47df6e61e29.setIcon(icon_ffe233927481831a27f5eedf5dc3476f);
+        
+    
+        var popup_426fa5509ede5357ef44679bcef5834f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_609abe59e2eb74fac132357b31884b51 = $(`<div id="html_609abe59e2eb74fac132357b31884b51" style="width: 100.0%; height: 100.0%;"><b>State:</b> Ebonyi<br><b>Confirmed Cases:</b> 2,062<br><b>Deaths:</b> 32</div>`)[0];
+                popup_426fa5509ede5357ef44679bcef5834f.setContent(html_609abe59e2eb74fac132357b31884b51);
+            
+        
+
+        marker_aef321f82b4382a7be12e47df6e61e29.bindPopup(popup_426fa5509ede5357ef44679bcef5834f)
+        ;
+
+        
+    
+    
+            var marker_b94f4381942ee1106b48ea861b9943ec = L.marker(
+                [7.3505747, 8.7772877],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_655ab878faf191e40ad5c3a882619bde = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_b94f4381942ee1106b48ea861b9943ec.setIcon(icon_655ab878faf191e40ad5c3a882619bde);
+        
+    
+        var popup_9654e497e2a90abd645b6c7cf5c87013 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7c49d37bb70304de5df9afc0a8930bf1 = $(`<div id="html_7c49d37bb70304de5df9afc0a8930bf1" style="width: 100.0%; height: 100.0%;"><b>State:</b> Benue<br><b>Confirmed Cases:</b> 1,907<br><b>Deaths:</b> 25</div>`)[0];
+                popup_9654e497e2a90abd645b6c7cf5c87013.setContent(html_7c49d37bb70304de5df9afc0a8930bf1);
+            
+        
+
+        marker_b94f4381942ee1106b48ea861b9943ec.bindPopup(popup_9654e497e2a90abd645b6c7cf5c87013)
+        ;
+
+        
+    
+    
+            var marker_84dd3691f7fa80bd1b117721f678645c = L.marker(
+                [7.736891, 5.2738326],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_54175e0c5e1df5394958dc5ff58e80a4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_84dd3691f7fa80bd1b117721f678645c.setIcon(icon_54175e0c5e1df5394958dc5ff58e80a4);
+        
+    
+        var popup_18d6c02fc9256b8f0e4722d29cbd206e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_eda3b703e3b66b5ff2a5bd70653dd14d = $(`<div id="html_eda3b703e3b66b5ff2a5bd70653dd14d" style="width: 100.0%; height: 100.0%;"><b>State:</b> Ekiti<br><b>Confirmed Cases:</b> 1,898<br><b>Deaths:</b> 28</div>`)[0];
+                popup_18d6c02fc9256b8f0e4722d29cbd206e.setContent(html_eda3b703e3b66b5ff2a5bd70653dd14d);
+            
+        
+
+        marker_84dd3691f7fa80bd1b117721f678645c.bindPopup(popup_18d6c02fc9256b8f0e4722d29cbd206e)
+        ;
+
+        
+    
+    
+            var marker_18556bf0824dcb930dd534d26051d398 = L.marker(
+                [10.6228284, 10.0287754],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_d13c74470bceb6f0d858f182743fd8be = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_18556bf0824dcb930dd534d26051d398.setIcon(icon_d13c74470bceb6f0d858f182743fd8be);
+        
+    
+        var popup_be122aa78356d300769994fd590c94cb = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ff602d4fd104387eb5ef7552d89966f7 = $(`<div id="html_ff602d4fd104387eb5ef7552d89966f7" style="width: 100.0%; height: 100.0%;"><b>State:</b> Bauchi<br><b>Confirmed Cases:</b> 1,851<br><b>Deaths:</b> 23</div>`)[0];
+                popup_be122aa78356d300769994fd590c94cb.setContent(html_ff602d4fd104387eb5ef7552d89966f7);
+            
+        
+
+        marker_18556bf0824dcb930dd534d26051d398.bindPopup(popup_be122aa78356d300769994fd590c94cb)
+        ;
+
+        
+    
+    
+            var marker_0a0dbdf3264d4d47af1dd914a0b56c3d = L.marker(
+                [45.9473303, 10.2064036],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_22b425a3340b7e9e29b2857dd0601636 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_0a0dbdf3264d4d47af1dd914a0b56c3d.setIcon(icon_22b425a3340b7e9e29b2857dd0601636);
+        
+    
+        var popup_e11bc9ab0fa2876022334173faf03b9e = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c15749cd4b43311a82cd6aca624e3270 = $(`<div id="html_c15749cd4b43311a82cd6aca624e3270" style="width: 100.0%; height: 100.0%;"><b>State:</b> Borno<br><b>Confirmed Cases:</b> 1,532<br><b>Deaths:</b> 38</div>`)[0];
+                popup_e11bc9ab0fa2876022334173faf03b9e.setContent(html_c15749cd4b43311a82cd6aca624e3270);
+            
+        
+
+        marker_0a0dbdf3264d4d47af1dd914a0b56c3d.bindPopup(popup_e11bc9ab0fa2876022334173faf03b9e)
+        ;
+
+        
+    
+    
+            var marker_f1e89fb1abb804febee97918ad80bd7d = L.marker(
+                [4.7629786, 6.028898],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_c337d697f8c991715192d71e97a667b4 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_f1e89fb1abb804febee97918ad80bd7d.setIcon(icon_c337d697f8c991715192d71e97a667b4);
+        
+    
+        var popup_0d8c1b88030c1361ce9e630063e22dee = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_4179c8a63563fa1b81507c6aabbf40d5 = $(`<div id="html_4179c8a63563fa1b81507c6aabbf40d5" style="width: 100.0%; height: 100.0%;"><b>State:</b> Bayelsa<br><b>Confirmed Cases:</b> 1,290<br><b>Deaths:</b> 28</div>`)[0];
+                popup_0d8c1b88030c1361ce9e630063e22dee.setContent(html_4179c8a63563fa1b81507c6aabbf40d5);
+            
+        
+
+        marker_f1e89fb1abb804febee97918ad80bd7d.bindPopup(popup_0d8c1b88030c1361ce9e630063e22dee)
+        ;
+
+        
+    
+    
+            var marker_dd4e340dfc237dfb38fd14acc0a1974e = L.marker(
+                [8.0141334, 10.7376336],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_ac3386a21081b40e7c015acc8d8aa2d3 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_dd4e340dfc237dfb38fd14acc0a1974e.setIcon(icon_ac3386a21081b40e7c015acc8d8aa2d3);
+        
+    
+        var popup_bd0f7c78fed2430b5baeb8c2edb42577 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e030f1754eaeef00861c23c8667e5f60 = $(`<div id="html_e030f1754eaeef00861c23c8667e5f60" style="width: 100.0%; height: 100.0%;"><b>State:</b> Taraba<br><b>Confirmed Cases:</b> 1,269<br><b>Deaths:</b> 32</div>`)[0];
+                popup_bd0f7c78fed2430b5baeb8c2edb42577.setContent(html_e030f1754eaeef00861c23c8667e5f60);
+            
+        
+
+        marker_dd4e340dfc237dfb38fd14acc0a1974e.bindPopup(popup_bd0f7c78fed2430b5baeb8c2edb42577)
+        ;
+
+        
+    
+    
+            var marker_3e9d079d30acd8b1ea0d2e486602e03c = L.marker(
+                [9.5129772, 12.3881887],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_ec764e2be32b7ebcc83d63e75bcb8835 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_3e9d079d30acd8b1ea0d2e486602e03c.setIcon(icon_ec764e2be32b7ebcc83d63e75bcb8835);
+        
+    
+        var popup_5ff136df54d6d9c9aa21452a1e3f972d = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_7a6d460c1938302b807effdd13ac5e2d = $(`<div id="html_7a6d460c1938302b807effdd13ac5e2d" style="width: 100.0%; height: 100.0%;"><b>State:</b> Adamawa<br><b>Confirmed Cases:</b> 1,157<br><b>Deaths:</b> 32</div>`)[0];
+                popup_5ff136df54d6d9c9aa21452a1e3f972d.setContent(html_7a6d460c1938302b807effdd13ac5e2d);
+            
+        
+
+        marker_3e9d079d30acd8b1ea0d2e486602e03c.bindPopup(popup_5ff136df54d6d9c9aa21452a1e3f972d)
+        ;
+
+        
+    
+    
+            var marker_62e1ba7b7b6272a9762bc155f53bad25 = L.marker(
+                [9.6139, 6.5569],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_19e4f4535555fb980cd5d3887ca7d85f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_62e1ba7b7b6272a9762bc155f53bad25.setIcon(icon_19e4f4535555fb980cd5d3887ca7d85f);
+        
+    
+        var popup_2d25bb0de15204c5f75bf71d0de8d929 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_858d109a279526af6c1a11ca8073d70e = $(`<div id="html_858d109a279526af6c1a11ca8073d70e" style="width: 100.0%; height: 100.0%;"><b>State:</b> Niger<br><b>Confirmed Cases:</b> 1,077<br><b>Deaths:</b> 20</div>`)[0];
+                popup_2d25bb0de15204c5f75bf71d0de8d929.setContent(html_858d109a279526af6c1a11ca8073d70e);
+            
+        
+
+        marker_62e1ba7b7b6272a9762bc155f53bad25.bindPopup(popup_2d25bb0de15204c5f75bf71d0de8d929)
+        ;
+
+        
+    
+    
+            var marker_7572a5cc57ef3683231c6144685392fb = L.marker(
+                [13.0611195, 5.3152203],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_9712f6e76d716ebd2f439205b68b657c = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_7572a5cc57ef3683231c6144685392fb.setIcon(icon_9712f6e76d716ebd2f439205b68b657c);
+        
+    
+        var popup_cae05a9050407e718e33d6e303d818a4 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_82fa38eec5257dd65ee8245010e3dbfa = $(`<div id="html_82fa38eec5257dd65ee8245010e3dbfa" style="width: 100.0%; height: 100.0%;"><b>State:</b> Sokoto<br><b>Confirmed Cases:</b> 810<br><b>Deaths:</b> 28</div>`)[0];
+                popup_cae05a9050407e718e33d6e303d818a4.setContent(html_82fa38eec5257dd65ee8245010e3dbfa);
+            
+        
+
+        marker_7572a5cc57ef3683231c6144685392fb.bindPopup(popup_cae05a9050407e718e33d6e303d818a4)
+        ;
+
+        
+    
+    
+            var marker_b5a8b5ee1909c75814fcd69451d8ab4e = L.marker(
+                [5.8671966, 8.5204774],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_ff75f9bc809712aa5f362278fbf92c8d = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_b5a8b5ee1909c75814fcd69451d8ab4e.setIcon(icon_ff75f9bc809712aa5f362278fbf92c8d);
+        
+    
+        var popup_76ff5f2986a68b8f64851375306f6d42 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_e5b3e747b94ceeee46f84175ef1ea86d = $(`<div id="html_e5b3e747b94ceeee46f84175ef1ea86d" style="width: 100.0%; height: 100.0%;"><b>State:</b> Cross River<br><b>Confirmed Cases:</b> 696<br><b>Deaths:</b> 25</div>`)[0];
+                popup_76ff5f2986a68b8f64851375306f6d42.setContent(html_e5b3e747b94ceeee46f84175ef1ea86d);
+            
+        
+
+        marker_b5a8b5ee1909c75814fcd69451d8ab4e.bindPopup(popup_76ff5f2986a68b8f64851375306f6d42)
+        ;
+
+        
+    
+    
+            var marker_f94639dfa4d25dd002fd3dbef1254bd0 = L.marker(
+                [12.3252362, 9.5103296],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_cb0401106902879ae03ff790a32fa77a = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_f94639dfa4d25dd002fd3dbef1254bd0.setIcon(icon_cb0401106902879ae03ff790a32fa77a);
+        
+    
+        var popup_b323b926048ccf14a47c3f8ad42ebd3f = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_db0126c210700ea2915bf498b2e9cef9 = $(`<div id="html_db0126c210700ea2915bf498b2e9cef9" style="width: 100.0%; height: 100.0%;"><b>State:</b> Jigawa<br><b>Confirmed Cases:</b> 627<br><b>Deaths:</b> 17</div>`)[0];
+                popup_b323b926048ccf14a47c3f8ad42ebd3f.setContent(html_db0126c210700ea2915bf498b2e9cef9);
+            
+        
+
+        marker_f94639dfa4d25dd002fd3dbef1254bd0.bindPopup(popup_b323b926048ccf14a47c3f8ad42ebd3f)
+        ;
+
+        
+    
+    
+            var marker_bb0390a280e33ebe8e1096c5f0f8fc3e = L.marker(
+                [12.1233242, 11.5065937],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_33432062af57324450e83bb614c739ab = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_bb0390a280e33ebe8e1096c5f0f8fc3e.setIcon(icon_33432062af57324450e83bb614c739ab);
+        
+    
+        var popup_a1d3fec5fa37a1fae3198a3bca615b21 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_5c7afb6f5d7b240369e2a56b7347f4a0 = $(`<div id="html_5c7afb6f5d7b240369e2a56b7347f4a0" style="width: 100.0%; height: 100.0%;"><b>State:</b> Yobe<br><b>Confirmed Cases:</b> 502<br><b>Deaths:</b> 9</div>`)[0];
+                popup_a1d3fec5fa37a1fae3198a3bca615b21.setContent(html_5c7afb6f5d7b240369e2a56b7347f4a0);
+            
+        
+
+        marker_bb0390a280e33ebe8e1096c5f0f8fc3e.bindPopup(popup_a1d3fec5fa37a1fae3198a3bca615b21)
+        ;
+
+        
+    
+    
+            var marker_fafb93c0c2762de652b173b2339365a6 = L.marker(
+                [11.4167574, 4.1074545],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_6a88679be33c2033b1b4bad8da01345f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_fafb93c0c2762de652b173b2339365a6.setIcon(icon_6a88679be33c2033b1b4bad8da01345f);
+        
+    
+        var popup_11d7d6967d6b564d091c7e96c3089a36 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_985366ca1bb611605cd87fe46bad9dc0 = $(`<div id="html_985366ca1bb611605cd87fe46bad9dc0" style="width: 100.0%; height: 100.0%;"><b>State:</b> Kebbi<br><b>Confirmed Cases:</b> 470<br><b>Deaths:</b> 16</div>`)[0];
+                popup_11d7d6967d6b564d091c7e96c3089a36.setContent(html_985366ca1bb611605cd87fe46bad9dc0);
+            
+        
+
+        marker_fafb93c0c2762de652b173b2339365a6.bindPopup(popup_11d7d6967d6b564d091c7e96c3089a36)
+        ;
+
+        
+    
+    
+            var marker_2553711c24303aaea08336c3c39e4ae1 = L.marker(
+                [12.0078998, 6.4191432],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_a64b0aeefd360977faac54ba89d50123 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_2553711c24303aaea08336c3c39e4ae1.setIcon(icon_a64b0aeefd360977faac54ba89d50123);
+        
+    
+        var popup_e797b4d0f910ea46acb80f461abf1302 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0e8fb15504f573369aa6ca1c4e3c6495 = $(`<div id="html_0e8fb15504f573369aa6ca1c4e3c6495" style="width: 100.0%; height: 100.0%;"><b>State:</b> Zamfara<br><b>Confirmed Cases:</b> 375<br><b>Deaths:</b> 9</div>`)[0];
+                popup_e797b4d0f910ea46acb80f461abf1302.setContent(html_0e8fb15504f573369aa6ca1c4e3c6495);
+            
+        
+
+        marker_2553711c24303aaea08336c3c39e4ae1.bindPopup(popup_e797b4d0f910ea46acb80f461abf1302)
+        ;
+
+        
+    
+    
+            var marker_6c637aa0c1ba0657430310657c64c2c1 = L.marker(
+                [7.7949602, 6.6868669],
+                {}
+            ).addTo(marker_cluster_774437557d22e26258982c09f81d3622);
+        
+    
+            var icon_d8eab277e8f580bc9ce925089216fd00 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "plus-square", "iconColor": "white", "markerColor": "green", "prefix": "fa"}
+            );
+            marker_6c637aa0c1ba0657430310657c64c2c1.setIcon(icon_d8eab277e8f580bc9ce925089216fd00);
+        
+    
+        var popup_9b3b8a3cbe66531bd8a5b5ce42347b62 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_3ed30d32fcc40e84e340788dfec5ff35 = $(`<div id="html_3ed30d32fcc40e84e340788dfec5ff35" style="width: 100.0%; height: 100.0%;"><b>State:</b> Kogi<br><b>Confirmed Cases:</b> 5<br><b>Deaths:</b> 2</div>`)[0];
+                popup_9b3b8a3cbe66531bd8a5b5ce42347b62.setContent(html_3ed30d32fcc40e84e340788dfec5ff35);
+            
+        
+
+        marker_6c637aa0c1ba0657430310657c64c2c1.bindPopup(popup_9b3b8a3cbe66531bd8a5b5ce42347b62)
+        ;
+
+        
+    
+    
+            L.control.fullscreen(
+                {"forceSeparateButton": true, "position": "topright", "title": "Expand me", "titleCancel": "Exit me"}
+            ).addTo(map_7b2d3dd5411d4898530205a35f9a9446);
+        
+    
+            var layer_control_271449ca44e766777158896de30d8662 = {
+                base_layers : {
+                    "CartoDB Positron" : tile_layer_4a3fda99f0a6498e987736e4560712e0,
+                    "OpenStreetMap" : tile_layer_fa76d1db3d527b8201c7c6b6421b55fa,
+                },
+                overlays :  {
+                    "macro_element_774437557d22e26258982c09f81d3622" : marker_cluster_774437557d22e26258982c09f81d3622,
+                },
+            };
+            L.control.layers(
+                layer_control_271449ca44e766777158896de30d8662.base_layers,
+                layer_control_271449ca44e766777158896de30d8662.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_7b2d3dd5411d4898530205a35f9a9446);
+            tile_layer_fa76d1db3d527b8201c7c6b6421b55fa.remove();
+        
+</script>
+</html>
