@@ -21,6 +21,7 @@ The interactive map produced by this notebook is saved as a html file and can be
 - Branca
 
 **Features**
+
 The following are the contents of the interactive map:
 - The data points (coordinate points) indicated by custom health markers.
 - Clickable markers that unveil COVID-19 details to users on click
